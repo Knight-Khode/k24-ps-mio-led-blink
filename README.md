@@ -55,33 +55,6 @@ For this project, the onboard LED is controlled through the PS GPIO peripheral u
 
 **Target:** D13, connected to MIO27.
 
-## 4. System Architecture
-
-The implementation uses the PS GPIO controller to drive the onboard LED directly.
-
-```text
-+-------------------------------------------+
-|          Zynq UltraScale+ MPSoC           |
-|                                           |
-|  +-------------------------------------+  |
-|  |        Processing System (PS)       |  |
-|  |                                     |  |
-|  |  ARM Cortex-A53                     |  |
-|  |       |                             |  |
-|  |  Bare-Metal C Application           |  |
-|  |       |                             |  |
-|  |  Xilinx GPIO Driver (XGpioPs)       |  |
-|  |       |                             |  |
-|  |  PS GPIO Controller                 |  |
-|  +-------|-----------------------------+  |
-|          |                                |
-|        MIO27                              |
-+----------|--------------------------------+
-           |
-           v
-       Onboard D13 LED
-```
-
 The software application configures MIO27 as an output and repeatedly writes logic levels to the GPIO pin, producing a blinking LED.
 
 ## 5. Project Implementation
