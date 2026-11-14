@@ -52,7 +52,7 @@ For this project, use:
 
 Choose a suitable directory and open the workspace.
 
-![Open Vitis Workspace](../images/opened_workspace.png)
+![Open Vitis Workspace](../images/vitis_workspace_main.png)
 
 *Figure 2: Selecting and opening the Vitis workspace.*
 
