@@ -4,6 +4,8 @@ A step-by-step tutorial on blinking the onboard LED of the Avnet K24 Development
 # Avnet K24 – PS MIO LED Blink
 
 A step-by-step tutorial on controlling the onboard LED of the Avnet K24 Development Kit using Processing System (PS) MIO GPIO. This project covers hardware configuration in Vivado, software platform development in Vitis, and bare-metal C programming on the Zynq UltraScale+ MPSoC.
+![Uploading image.png…]()
+
 
 ## 1. Project Overview
 
