@@ -8,7 +8,7 @@ A step-by-step implementation of onboard LED control on the Avnet K24 Developmen
 
 This project demonstrates how to configure and control an onboard LED directly from the Processing System (PS) of the Avnet K24 Development Kit.
 
-The target LED is **D13**, which is connected to **MIO27**. Using the PS GPIO peripheral, the ARM Cortex-A53 processor can configure MIO27 as an output and control the LED through a bare-metal C application.
+The target LED is **D13**, connected to **MIO27**. Using the PS GPIO peripheral, the ARM Cortex-A53 processor configures MIO27 as an output and controls the LED through a bare-metal C application.
 
 Unlike implementations that use Programmable Logic (PL), this approach uses the PS MIO interface. Therefore, no custom RTL, AXI GPIO IP, or PL pin constraints are required.
 
@@ -62,46 +62,19 @@ For this project, the PS GPIO controller uses MIO27 to control the onboard D13 L
 
 **Target configuration: D13 → MIO27 → PS GPIO**
 
+### Avnet K24 Development Board
+
 ![Avnet K24 Development Kit](images/k24_development_board.jpg)
 
-*Figure 1: Avnet K24 Development Kit.*
+*Figure 1: Avnet K24 Development Kit used for this project.*
 
-## 4. System Architecture
-
-The implementation uses the PS GPIO controller to drive the onboard LED directly.
-
-```text
-             Zynq UltraScale+ MPSoC
-       +----------------------------------+
-       |                                  |
-       |       Processing System (PS)     |
-       |                                  |
-       |       ARM Cortex-A53             |
-       |              |                   |
-       |       Bare-Metal C Application   |
-       |              |                   |
-       |       Xilinx GPIO Driver         |
-       |           (XGpioPs)              |
-       |              |                   |
-       |       PS GPIO Controller         |
-       |              |                   |
-       +--------------|-------------------+
-                      |
-                    MIO27
-                      |
-                      v
-                Onboard D13 LED
-```
-
-The software application initializes the GPIO peripheral, configures MIO27 as an output, and repeatedly changes its output state. This produces the LED blinking effect.
-
-## 5. Project Implementation
+## 4. Project Implementation
 
 ### Part 1 – Vivado Hardware Configuration
 
 The first stage involves creating a Vivado project and configuring the Zynq UltraScale+ MPSoC.
 
-#### Implementation steps
+#### Implementation Steps
 
 1. Create a new Vivado RTL project for the Avnet K24 Development Kit.
 2. Create a block design.
@@ -116,7 +89,7 @@ The first stage involves creating a Vivado project and configuring the Zynq Ultr
 11. Generate the bitstream.
 12. Export the hardware design as an XSA file, including the bitstream.
 
-#### Block Design
+#### Vivado Block Design
 
 ![Vivado Block Design](images/vivado_block_design.png)
 
@@ -126,7 +99,7 @@ The first stage involves creating a Vivado project and configuring the Zynq Ultr
 
 ![GPIO MIO Configuration](images/GPIO%20MIO%20Configuration.png)
 
-*Figure 3: GPIO MIO bank configuration in the Zynq UltraScale+ MPSoC settings.*
+*Figure 3: GPIO MIO configuration in the Zynq UltraScale+ MPSoC settings.*
 
 **Important:** MIO27 belongs to the GPIO1 MIO bank. Enabling the appropriate GPIO MIO bank is necessary for the PS GPIO peripheral to control the target pin.
 
@@ -136,7 +109,7 @@ For this implementation, no additional PL logic or external PL pin constraints a
 
 After completing the hardware design in Vivado, export the XSA file and import it into Vitis to create the software platform.
 
-#### Implementation steps
+#### Implementation Steps
 
 1. Launch Vitis.
 2. Create a new platform component.
@@ -151,6 +124,12 @@ After completing the hardware design in Vivado, export the XSA file and import i
 
 The generated BSP provides access to the PS GPIO driver through the `XGpioPs` API.
 
+#### Vitis Workspace
+
+![Vitis Workspace](images/vitis_workspace.png)
+
+*Figure 4: Vitis workspace containing the software platform and application.*
+
 #### UART Verification
 
 Before implementing GPIO control, verify that the application can communicate with the host computer through the board's UART interface.
@@ -164,13 +143,7 @@ Configure the serial terminal with:
 | Parity | None |
 | Stop bits | 1 |
 
-The Hello World application can be used to verify the UART communication and basic software execution.
-
-#### Vitis Workspace
-
-![Vitis Workspace](images/vitis_workspace.png)
-
-*Figure 4: Vitis workspace containing the software platform and application.*
+The Hello World application can be used to verify UART communication and basic software execution.
 
 ### Part 3 – Bare-Metal MIO GPIO Programming
 
@@ -258,7 +231,7 @@ The application continuously alternates the GPIO output state to produce the bli
 
 **Note:** The relationship between the GPIO logic level and the LED's illuminated state depends on the board's LED electrical polarity. Verify the actual behavior on the hardware.
 
-## 6. GPIO Driver Function Reference
+## 5. GPIO Driver Function Reference
 
 | Function | Description |
 |---|---|
@@ -268,7 +241,7 @@ The application continuously alternates the GPIO output state to produce the bli
 | `XGpioPs_SetOutputEnablePin()` | Enables or disables the GPIO output driver. |
 | `XGpioPs_WritePin()` | Writes a logic level to a GPIO pin. |
 
-## 7. Repository Structure
+## 6. Repository Structure
 
 ```text
 k24-ps-mio-led-blink/
@@ -293,13 +266,13 @@ k24-ps-mio-led-blink/
 └── LICENSE
 ```
 
-## 8. Expected Result
+## 7. Expected Result
 
 After successfully building and running the bare-metal application, the onboard D13 LED should blink continuously.
 
 The application executes on the ARM Cortex-A53 processor and controls the LED directly through the PS GPIO peripheral using MIO27.
 
-## 9. Key Learning Outcomes
+## 8. Key Learning Outcomes
 
 This project provides practical experience with:
 
@@ -312,7 +285,7 @@ This project provides practical experience with:
 - Xilinx PS GPIO driver integration.
 - Direct control of physical board peripherals.
 
-## 10. Possible Extensions
+## 9. Possible Extensions
 
 The implementation can be extended to explore additional PS GPIO functionality:
 
@@ -322,7 +295,7 @@ The implementation can be extended to explore additional PS GPIO functionality:
 - Compare MIO-based GPIO with EMIO-based GPIO.
 - Develop interrupt-driven GPIO applications.
 
-## 11. References
+## 10. References
 
 - [AMD Vivado Design Suite Documentation](https://docs.amd.com/)
 - [AMD Vitis Unified Software Platform Documentation](https://docs.amd.com/r/en-US/ug1400-vitis-embedded)
@@ -331,7 +304,7 @@ The implementation can be extended to explore additional PS GPIO functionality:
 
 ---
 
-### Project Information
+## Project Information
 
 | Parameter | Description |
 |---|---|
