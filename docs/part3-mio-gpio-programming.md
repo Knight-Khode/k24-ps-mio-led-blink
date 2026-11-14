@@ -32,7 +32,7 @@ The Xilinx `XGpioPs` driver provides a software interface for interacting with t
 
 Instead of directly accessing GPIO registers, the application uses the driver API to configure and control the GPIO peripheral.
 
-The primary GPIO driver is `XGpioPs`.
+The primary GPIO driver used in this project is `XGpioPs`.
 
 ![XGpioPs Driver](../images/xgpiops.png)
 
@@ -40,9 +40,7 @@ The primary GPIO driver is `XGpioPs`.
 
 ### 2.1 GPIO Driver Header File
 
-The primary driver header file is:
-
-`xgpiops.h`
+The primary driver header file is `xgpiops.h`.
 
 It provides the declarations required to use the PS GPIO driver API, including the GPIO data structures and function prototypes.
 
@@ -84,7 +82,7 @@ The GPIO driver is integrated into the generated software platform and provides 
 
 The application uses the GPIO driver through the `XGpioPs` API.
 
-Some of the important functions provided by the driver include:
+The main functions used in this project include:
 
 | Function | Purpose |
 |---|---|
@@ -390,7 +388,7 @@ After completing the GPIO initialization and pin configuration, build the applic
 
 ![Build and Run LED Blink](../images/build_run_ledblink.png)
 
-*Figure 9: Building the bare-metal LED blink application in Vitis.*
+*Figure 9: Building and running the bare-metal LED blink application in Vitis.*
 
 ### 8.2 Execute the Application
 
